@@ -16,18 +16,26 @@ class AnalyzeCodeTest {
             "}\n";
 
     @org.junit.jupiter.api.Test
-    void readFileTestWithoutComments() {
+    void readFileWithoutCommentsTest() {
         File codeFile = new File("test\\HelloWorld.java");
-        AnalyzeCode analyzeCode = new AnalyzeCode();
         String[] mainParameters = {codeFile.getAbsolutePath()};
-        assertEquals( expectedCode, analyzeCode.main(mainParameters), "A difference has occurred");
+        assertEquals(expectedCode, AnalyzeCode.readFile(mainParameters[0]), "A difference has occurred");
     }
 
     @org.junit.jupiter.api.Test
-    void readFileTestWitComments() {
+    void readFileWitCommentsTest() {
         File codeFile = new File("test\\HelloWorldWithComments.java");
-        AnalyzeCode analyzeCode = new AnalyzeCode();
         String[] mainParameters = {codeFile.getAbsolutePath()};
-        assertEquals( expectedCodeWithoutComments, analyzeCode.main(mainParameters), "A difference has occurred");
+        assertEquals(expectedCodeWithoutComments, AnalyzeCode.readFile(mainParameters[0]), "A difference has occurred");
+    }
+
+    @org.junit.jupiter.api.Test
+    void mainCountLinesTest() {
+        File codeFile = new File("test\\HelloWorld.java");
+        String[] mainParameters = {codeFile.getAbsolutePath()};
+        assertEquals(5, AnalyzeCode.main(mainParameters), "A difference has occurred");
+        codeFile = new File("test\\HelloWorldWithComments.java");
+        mainParameters[0] = codeFile.getAbsolutePath();
+        assertEquals(5, AnalyzeCode.main(mainParameters), "A difference has occurred");
     }
 }
