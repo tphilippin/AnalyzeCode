@@ -4,21 +4,23 @@ import java.util.Scanner;
 
 /**
  * reads the program code and returns it without comments
+ *
  * @author Tobias Philippin
  * @version 1.0.0
  */
 public class AnalyzeCode {
 
-    public static String main(String[] args) {
-        return readFile(args[0]);
+    public static int main(String[] args) {
+        return readFile(args[0]).split("\n").length;
     }
 
     /**
      * reads the file
+     *
      * @param filename
      * @return code
      */
-    private static String readFile(String filename) {
+    protected static String readFile(String filename) {
         String code = "";
         try {
             File file = new File(filename);
@@ -26,7 +28,9 @@ public class AnalyzeCode {
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                code = code.concat(line).concat("\n");
+                if (!line.isEmpty()) {
+                    code = code.concat(line).concat("\n");
+                }
                 System.out.println(line);
             }
 
@@ -39,10 +43,11 @@ public class AnalyzeCode {
 
     /**
      * replace Comments
-     * @param  code
+     *
+     * @param code
      * @return codeWithoutLineComments
      */
-    private static String replaceComments (String code){
+    private static String replaceComments(String code) {
         String codeWithoutMultiLineComments = code.replaceAll("(\\r?\\n?\\s)+/\\*[\\s\\S]*?\\*/", "");
         return codeWithoutMultiLineComments.replaceAll("(\\r?\\n?\\s)+//.*", "");
     }
